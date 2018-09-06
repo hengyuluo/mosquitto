@@ -361,6 +361,12 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //	free(productKey);
 	free(productSecret);
 //	free(clientID);
+	if(user_data)
+	{
+		free(user_data);
+		user_data = NULL;
+	}
+
 	if(tempClientID != NULL)
 	{
 		
@@ -368,11 +374,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	tempClientID = NULL;
 	}
 
-	if(user_data)
-	{
-		free(user_data);
-		user_data = NULL;
-	}
+
 //	free(ID);
 //	free(secureMode);
 //	free(sighMethod);
