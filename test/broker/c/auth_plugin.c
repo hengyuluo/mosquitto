@@ -361,10 +361,17 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //	free(productKey);
 	free(productSecret);
 //	free(clientID);
-	if(tempClientID != NULL){
+	if(tempClientID != NULL)
+	{
 		
 	free(tempClientID);
 	tempClientID = NULL;
+	}
+
+	if(user_data)
+	{
+		free(user_data);
+		user_data = NULL;
 	}
 //	free(ID);
 //	free(secureMode);
@@ -376,10 +383,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //	free(realSignMethod);
 	
 
-	if(user_data)
-		{
-			free(user_data);
-		}
+
 
 /*	if(strcmp(realSignMethod, "hmacsha1") == 0)
 	{
