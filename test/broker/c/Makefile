@@ -1,13 +1,13 @@
 .PHONY: all test clean reallyclean 08
 
-CFLAGS=-I../../../lib -I../../../src -Wall -Werror
+CFLAGS=-I../../../ -I../../../lib -I../../../src -Wall
 
 all : auth_plugin.so auth_plugin_pwd.so auth_plugin_acl.so auth_plugin_v2.so 08
 
 08 : 08-tls-psk-pub.test 08-tls-psk-bridge.test
 
 auth_plugin.so : auth_plugin.c
-	$(CC) ${CFLAGS} -fPIC -shared $^ -o $@ 
+	$(CC) ${CFLAGS} -fPIC -shared $^ -lmysqlclient -o $@
 
 auth_plugin_pwd.so : auth_plugin_pwd.c
 	$(CC) ${CFLAGS} -fPIC -shared $^ -o $@ 

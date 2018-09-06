@@ -1,0 +1,12 @@
+1536046094: mosquitto version 1.5.0 starting
+1536046094: Config loaded from /mosquitto-cluster/mosquitto.conf.
+1536046094: Opening ipv4 listen socket on port 1883.
+1536046094: Opening ipv6 listen socket on port 1883.
+1536046094: [CLUSTER] totally 0 remote nodes configured:
+1536046097: New connection from 192.168.81.245 on port 1883.
+1536046257: mosquitto version 1.5.0 starting
+1536046257: Config loaded from /mosquitto-cluster/mosquitto.conf.
+1536046257: Opening ipv4 listen socket on port 1883.
+1536046257: Opening ipv6 listen socket on port 1883.
+1536046257: [CLUSTER] totally 0 remote nodes configured:
+1536046260: New connection from 192.168.81.245 on port 1883.

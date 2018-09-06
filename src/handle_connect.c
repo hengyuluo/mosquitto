@@ -108,6 +108,7 @@ void connection_check_acl(struct mosquitto_db *db, struct mosquitto *context, st
 
 int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 {
+	printf("9999999999999999999999999999\n");
 	char protocol_name[7];
 	uint8_t protocol_version;
 	uint8_t connect_flags;
@@ -505,7 +506,9 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 	}else{
 #endif /* WITH_TLS */
 		if(username_flag){
+			context->id = client_id;
 			rc = mosquitto_unpwd_check(db, context, username, password);
+	//		printf("00000000000000000000context0000000000000000000 = %s\n", context->id);
 			switch(rc){
 				case MOSQ_ERR_SUCCESS:
 					break;

@@ -1,0 +1,8 @@
+user lhy
+topic write write_test_topic/#
+
+user lhy
+topic read write_test_topic/#
+
+user lhy
+topic read read_test_topic/#

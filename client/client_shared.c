@@ -275,6 +275,7 @@ int client_config_load(struct mosq_config *cfg, int pub_or_sub, int argc, char *
 					}else{
 						count = 2;
 					}
+				//	printf("1111111111111111111%s", args);
 					rc = client_config_line_proc(cfg, pub_or_sub, count, args);
 					if(rc){
 						fclose(fptr);
@@ -289,6 +290,8 @@ int client_config_load(struct mosq_config *cfg, int pub_or_sub, int argc, char *
 	}
 
 	/* Deal with real argc/argv */
+
+//	printf("111111111111111%s", argv);
 	rc = client_config_line_proc(cfg, pub_or_sub, argc, argv);
 	if(rc) return rc;
 
@@ -372,6 +375,8 @@ int client_config_line_proc(struct mosq_config *cfg, int pub_or_sub, int argc, c
 	int i;
 
 	for(i=1; i<argc; i++){
+		printf("11111111111111%s", argv[i]);
+		printf("\n");
 		if(!strcmp(argv[i], "-p") || !strcmp(argv[i], "--port")){
 			if(i==argc-1){
 				fprintf(stderr, "Error: -p argument given but no port specified.\n\n");

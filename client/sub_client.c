@@ -233,6 +233,7 @@ void print_usage(void)
 
 int main(int argc, char *argv[])
 {
+	printf("111111111111sub1111111111111111");
 	struct mosq_config cfg;
 	int rc;
 #ifndef WIN32

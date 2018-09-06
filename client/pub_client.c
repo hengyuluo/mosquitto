@@ -296,6 +296,7 @@ void print_usage(void)
 
 int main(int argc, char *argv[])
 {
+	printf("222222222222222pub22222222222222222");
 	struct mosq_config cfg;
 	struct mosquitto *mosq = NULL;
 	int rc;

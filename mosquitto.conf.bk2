@@ -494,7 +494,7 @@ autosave_interval 0
 # Note that if the broker is running as a Windows service it will default to
 # "log_dest none" and neither stdout nor stderr logging is available.
 # Use "log_dest none" if you wish to disable logging.
-#log_dest file /mosquitto-cluster/mosquitto.log
+#log_dest stderr
 
 # If using syslog logging (not on Windows), messages will be logged to the
 # "daemon" facility by default. Use the log_facility option to choose which of
@@ -512,8 +512,6 @@ autosave_interval 0
 #log_type warning
 #log_type notice
 #log_type information
-#log_type all
-#log_type error
 
 # Change the websockets logging level. This is a global option, it is not
 # possible to set per listener. This is an integer that is interpreted by
@@ -566,7 +564,7 @@ allow_anonymous false
 # See the TLS client require_certificate and use_identity_as_username options
 # for alternative authentication options. If an auth_plugin is used as well as
 # password_file, the auth_plugin check will be made first.
-#password_file /mosquitto-cluster/pwfile
+password_file /mosquitto-cluster/pwfile
 
 # Access may also be controlled using a pre-shared-key file. This requires
 # TLS-PSK support and a listener configured to use it. The file should be text
@@ -625,7 +623,7 @@ allow_anonymous false
 #
 # If an auth_plugin is used as well as acl_file, the auth_plugin check will be
 # made first.
-#acl_file /mosquitto-cluster/acl
+acl_file /mosquitto-cluster/acl
 
 # -----------------------------------------------------------------
 # External authentication and topic access plugin options
@@ -941,19 +939,19 @@ allow_anonymous false
 #                     
 
 #auth_plugin /home/jpm/mosquitto-auth-plug/auth-plug.so
-auth_plugin /mosquitto-cluster/test/broker/c/auth_plugin.so
-#auth_opt_backends mysql
+auth_plugin /mosquitto-cluster/auth-plug.so
+auth_opt_backends mysql
 #auth_opt_cdbname mosquitto
-#auth_opt_host localhost
-#auth_opt_port 3306
-#auth_opt_dbname mosquitto_test
-#auth_opt_user root
-#auth_opt_pass 123456
-#auth_opt_userquery SELECT pw FROM users WHERE username = '%s'
-#auth_opt_superquery SELECT IFNULL(COUNT(*), 0) FROM users WHERE username = '%s' AND super = 1
-#auth_opt_aclquery SELECT topic FROM acls WHERE username = '%s'
+auth_opt_host root
+auth_opt_port 3306
+auth_opt_dbname mosquitto_test
+auth_opt_user root
+auth_opt_pass 408399281
+auth_opt_userquery SELECT pw FROM users WHERE username = '%s'
+auth_opt_superquery SELECT IFNULL(COUNT(*), 0) FROM users WHERE username = '%s' AND super = 1
+auth_opt_aclquery SELECT topic FROM acls WHERE username = '%s'
 
 
 # Usernames with this fnmatch(3) (a.k.a glob(3))  pattern are exempt from the
 # module's ACL checking
-#auth_opt_superusers S*
+auth_opt_superusers S*

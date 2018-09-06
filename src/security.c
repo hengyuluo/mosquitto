@@ -493,6 +493,7 @@ int mosquitto_acl_check(struct mosquitto_db *db, struct mosquitto *context, cons
 
 int mosquitto_unpwd_check(struct mosquitto_db *db, struct mosquitto *context, const char *username, const char *password)
 {
+//rintf("00000000000000000000000");
 	int rc;
 	int i;
 	struct mosquitto__security_options *opts;
@@ -513,8 +514,11 @@ int mosquitto_unpwd_check(struct mosquitto_db *db, struct mosquitto *context, co
 	rc = MOSQ_ERR_SUCCESS;
 	for(i=0; i<opts->auth_plugin_config_count; i++){
 		if(opts->auth_plugin_configs[i].plugin.version == 3){
+//	printf("00000000000000000%s",(char*)context->id);
+
 			rc = opts->auth_plugin_configs[i].plugin.unpwd_check_v3(
-					opts->auth_plugin_configs[i].plugin.user_data,
+				//	opts->auth_plugin_configs[i].plugin.user_data,
+					context->id,
 					context,
 					username,
 					password);
@@ -562,8 +566,9 @@ int mosquitto_psk_key_get(struct mosquitto_db *db, struct mosquitto *context, co
 
 	for(i=0; i<opts->auth_plugin_config_count; i++){
 		if(opts->auth_plugin_configs[i].plugin.version == 3){
- 			rc = opts->auth_plugin_configs[i].plugin.psk_key_get_v3(
- 						opts->auth_plugin_configs[i].plugin.user_data,
+
+			rc = opts->auth_plugin_configs[i].plugin.psk_key_get_v3(
+ 						opts->auth_plugin_configs[i].plugin.user_data,	
  						context,
  						hint,
  						identity,
