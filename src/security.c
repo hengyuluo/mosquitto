@@ -494,6 +494,7 @@ int mosquitto_acl_check(struct mosquitto_db *db, struct mosquitto *context, cons
 int mosquitto_unpwd_check(struct mosquitto_db *db, struct mosquitto *context, const char *username, const char *password)
 {
 //rintf("00000000000000000000000");
+	return MOSQ_ERR_AUTH;
 	int rc;
 	int i;
 	struct mosquitto__security_options *opts;

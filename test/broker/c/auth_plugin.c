@@ -178,8 +178,8 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	//	free(user_data);
 	//	user_data = NULL;
 	//}
-	//printf("errorrrrrrrrrrrrrrr\n");
-	//return MOSQ_ERR_AUTH;
+	printf("errorrrrrrrrrrrrrrr\n");
+	return MOSQ_ERR_AUTH;
 //	struct mosquitto *ptest = (struct mosquitto *)client;
 //	printf("=============================user_data=%s\n",(char*)user_data);	
 	
