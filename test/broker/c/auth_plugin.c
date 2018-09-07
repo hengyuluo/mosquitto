@@ -74,9 +74,9 @@ char *login_check(char *deviceName, char *productKey)
                 return result;
         }
 	free(g_host_name);
-        free(g_user_name);
-        free(g_password);
-        free(g_db_name);
+    free(g_user_name);
+    free(g_password);
+    free(g_db_name);
 	g_host_name = NULL;
 	g_user_name = NULL;
 	g_password = NULL;
@@ -257,8 +257,9 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //	printf("456");
 	char *productSecret = (char*)malloc((sizeof(char) * 1024));
 	memset(productSecret, 0, sizeof(char) * 1024);
+	printf("before_productSecret:%s\n", productSecret);
 	printf("deviceName:");
-        printf("%s", deviceName);
+    printf("%s", deviceName);
 	printf("\n");
 
 	memcpy(productSecret, login_check(deviceName, productKey), strlen(login_check(deviceName, productKey)));
@@ -291,6 +292,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	printf("user_data address%x\n", user_data);
 
 	char *tempClientID = (char *)malloc(length + 1);
+	char *freeTempClientID = tempClientID;
 	printf("user_data address:%x\n", user_data);
 	printf("tempClientID1 address:%x\n",tempClientID );
 	printf("tempClientID1:%s\n", tempClientID);
@@ -353,8 +355,8 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	strcat(combination, "timestamp");
 	strcat(combination, realTimeStamp);
 	printf("combine:");
-        printf("%s", combination);
-        printf("\n");
+    printf("%s", combination);
+    printf("\n");
 
 	free(split);
 //	free(deviceName);
@@ -368,10 +370,9 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	}
 
 	if(tempClientID != NULL)
-	{
-		
-	free(tempClientID);
-	tempClientID = NULL;
+	{	
+		free(tempClientID);
+		tempClientID = NULL;
 	}
 
 
@@ -409,6 +410,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	if(strcmp(combination, password) == 0){
 		printf("welcome\n");
 		free(combination);
+		combination = NULL;
 
 		return MOSQ_ERR_SUCCESS;
 	}
