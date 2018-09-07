@@ -359,9 +359,11 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //    printf("\n");
 
 	free(split);
+	split = NULL;
 //	free(deviceName);
 //	free(productKey);
 	free(productSecret);
+	productSecret = NULL;
 //	free(clientID);
 	if(user_data)
 	{
@@ -418,8 +420,8 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //		printf("password error\n");
 //		return MOSQ_ERR_AUTH;
 //	}
-	printf("hello");
-	return MOSQ_ERR_AUTH;
+	printf("hello1111111111111111111\n");
+	return MOSQ_ERR_SUCCESS;
 }
 
 int mosquitto_auth_psk_key_get(void *user_data, const struct mosquitto *client, const char *hint, const char *identity, char *key, int max_key_len)
