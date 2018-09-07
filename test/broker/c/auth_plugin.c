@@ -419,6 +419,9 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	}
 	else{
 		printf("password error\n");
+		free(combination);
+		combination = NULL;
+
 		return MOSQ_ERR_AUTH;
 	}
 }
