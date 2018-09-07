@@ -294,7 +294,6 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	printf("user_data address%x\n", user_data);
 
 	char *tempClientID = (char *)malloc(length + 1);
-	char *freeTempClientID = tempClientID;
 	printf("user_data address:%x\n", user_data);
 	printf("tempClientID1 address:%x\n",tempClientID );
 	printf("tempClientID1:%s\n", tempClientID);
@@ -423,6 +422,11 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 		printf("password error\n");
 		free(combination);
 		combination = NULL;
+		if(user_data)
+		{
+			free(user_data);
+			user_data = NULL;
+		}
 
 		return MOSQ_ERR_AUTH;
 	}
