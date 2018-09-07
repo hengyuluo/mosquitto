@@ -173,13 +173,6 @@ int mosquitto_auth_acl_check(void *user_data, int access, const struct mosquitto
 #include "mosquitto_internal.h" 
 int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, const char *username, const char *password)
 {
-	if(user_data)
-	{
-		free(user_data);
-		user_data = NULL;
-	}
-	printf("over\n");
-	return MOSQ_ERR_SUCCESS;
 //	struct mosquitto *ptest = (struct mosquitto *)client;
 //	printf("=============================user_data=%s\n",(char*)user_data);	
 	
@@ -349,21 +342,21 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	printf("realSIghMEthod:%s\n",realSignMethod);
 
 
-//	char *combination = (char*)malloc(sizeof(char) * 1024);
-////	combination = "clientid";
-////	printf("9999999999999999999999%s\n",combination);	
-//	memset(combination, 0, sizeof(char) * 1024);
-//	strcat(combination, "clientid");
-//	strcat(combination, ID);
-//	strcat(combination, "deviceName");
-//	strcat(combination, deviceName);
-//	strcat(combination, "productKey");
-//	strcat(combination, productKey);
-//	strcat(combination, "timestamp");
-//	strcat(combination, realTimeStamp);
-//	printf("combine:");
-//    printf("%s", combination);
-//    printf("\n");
+	char *combination = (char*)malloc(sizeof(char) * 1024);
+//	combination = "clientid";
+//	printf("9999999999999999999999%s\n",combination);	
+	memset(combination, 0, sizeof(char) * 1024);
+	strcat(combination, "clientid");
+	strcat(combination, ID);
+	strcat(combination, "deviceName");
+	strcat(combination, deviceName);
+	strcat(combination, "productKey");
+	strcat(combination, productKey);
+	strcat(combination, "timestamp");
+	strcat(combination, realTimeStamp);
+	printf("combine:");
+    printf("%s", combination);
+    printf("\n");
 
 	free(split);
 	split = NULL;
@@ -373,11 +366,11 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	productSecret = NULL;
 //	free(clientID);
 
-	if(user_data)
-	{
-		free(user_data);
-		user_data = NULL;
-	}
+	//if(user_data)
+	//{
+	//	free(user_data);
+	//	user_data = NULL;
+	//}
 
 	if(tempClientID != NULL)
 	{	
@@ -417,19 +410,17 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 		printf("%s", "no such sighMethod!");
 		return MOSQ_ERR_AUTH;
 		}*/
-//	if(strcmp(combination, password) == 0){
-//		printf("welcome\n");
-//		free(combination);
-//		combination = NULL;
-//
-//		return MOSQ_ERR_SUCCESS;
-//	}
-//	else{
-//		printf("password error\n");
-//		return MOSQ_ERR_AUTH;
-//	}
-	printf("hello1111111111111111111\n");
-	return MOSQ_ERR_SUCCESS;
+	if(strcmp(combination, password) == 0){
+		printf("welcome\n");
+		free(combination);
+		combination = NULL;
+
+		return MOSQ_ERR_SUCCESS;
+	}
+	else{
+		printf("password error\n");
+		return MOSQ_ERR_AUTH;
+	}
 }
 
 int mosquitto_auth_psk_key_get(void *user_data, const struct mosquitto *client, const char *hint, const char *identity, char *key, int max_key_len)
