@@ -243,7 +243,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //	char *split = "&";
 //	printf("ttttttttttttttttttttt%s\ntttttttttttttttttttt", split);
 	char tempUsername[100];
-	strncpy(tempUsername, username);
+	strncpy(tempUsername, username, strlen(username));
 	printf("temoUsnm:");
 	printf("%s",tempUsername);
 	printf("\n");
