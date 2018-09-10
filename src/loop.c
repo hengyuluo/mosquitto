@@ -760,7 +760,6 @@ static void loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, 
 #else
 static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds)
 #endif
-{
 	struct mosquitto *context;
 #ifndef WITH_EPOLL
 	struct mosquitto *ctxt_tmp;
