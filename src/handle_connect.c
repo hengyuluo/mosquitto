@@ -731,7 +731,7 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 	return send__connack(context, connect_ack, CONNACK_ACCEPTED);
 
 handle_connect_error:
-	//printf("0000000000000000000000\n");
+	printf("0000000000000000000000\n");
 	mosquitto__free(client_id);
 	//printf("1111111111111111111111\n");
 	mosquitto__free(username);
