@@ -676,19 +676,23 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 #ifdef WITH_EPOLL
 	struct epoll_event ev;
 #endif
-
+	printf("0\n");
 	if(context->state == mosq_cs_disconnected){
 		return;
 	}
+	printf("1\n");
 #ifdef WITH_CLUSTER
+	printf("2\n");
 	if(context->is_node)
 		node__disconnect(db, context);
 	if(!context->is_node && !context->is_peer && !context->save_subs && context->clean_session)
 		mosquitto_cluster_client_disconnect(db, context);
 	if(context->is_peer)
 		sub__clean_session(db, context);
+	printf("3\n");
 #endif
 #ifdef WITH_WEBSOCKETS
+	printf("4\n");
 	if(context->wsi){
 		if(context->state != mosq_cs_disconnecting){
 			context->state = mosq_cs_disconnect_ws;
@@ -706,8 +710,10 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 			context->sock = INVALID_SOCKET;
 			context->pollfd_index = -1;
 		}
-	}else
+	}else;
+	printf("5\n");
 #endif
+	printf("6\n");
 	{
 		if(db->config->connection_messages == true){
 			if(context->id){
@@ -741,6 +747,7 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 		}
 		context->state = mosq_cs_disconnected;
 	}
+	printf("7\n");
 }
 
 
