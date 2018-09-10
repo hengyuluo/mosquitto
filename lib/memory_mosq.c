@@ -64,6 +64,7 @@ void mosquitto__free(void *mem)
 	if(mem)
 	{
 		free(mem);
+		mem = NULL;
 	}
 }
 
