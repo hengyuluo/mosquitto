@@ -55,7 +55,8 @@ void *mosquitto__calloc(size_t nmemb, size_t size)
 
 void mosquitto__free(void *mem)
 {
-	printf("%s,%d, %x\n", __FUNCTION__, __LINE__, mem);
+	printf("****************************\n");
+	//printf("%s,%d, %x\n", __FUNCTION__, __LINE__, mem);
 #ifdef REAL_WITH_MEMORY_TRACKING
 	if(!mem){
 		return;
