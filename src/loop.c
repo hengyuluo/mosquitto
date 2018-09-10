@@ -743,15 +743,15 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 #endif
 			context__add_to_disused(db, context);
 			printf("6.3.1\n");
-			//if(context->id){
-			//	printf("6.3.2\n");
-			//	//HASH_DELETE(hh_id, db->contexts_by_id, context);
-			//	printf("6.3.3\n");
-			//	mosquitto__free(context->id);
-			//	printf("6.3.4\n");
-			//	context->id = NULL;
-			//	printf("6.3.5\n");
-			//}
+			if(context->id){
+				printf("6.3.2\n");
+				HASH_DELETE(hh_id, db->contexts_by_id, context);
+				printf("6.3.3\n");
+				mosquitto__free(context->id);
+				printf("6.3.4\n");
+				context->id = NULL;
+				printf("6.3.5\n");
+			}
 			printf("6.4\n");
 		}
 		context->state = mosq_cs_disconnected;
