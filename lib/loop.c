@@ -372,6 +372,7 @@ int mosquitto_loop_read(struct mosquitto *mosq, int max_packets)
 		}else
 #endif
 		{
+			printf("goto packet__read\n");
 			rc = packet__read(mosq);
 		}
 		if(rc || errno == EAGAIN || errno == COMPAT_EWOULDBLOCK){

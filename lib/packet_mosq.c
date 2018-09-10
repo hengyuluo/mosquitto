@@ -596,5 +596,6 @@ int packet__read(struct mosquitto *mosq)
 	pthread_mutex_lock(&mosq->msgtime_mutex);
 	mosq->last_msg_in = mosquitto_time();
 	pthread_mutex_unlock(&mosq->msgtime_mutex);
+	printf("packet__read return\n");
 	return rc;
 }
