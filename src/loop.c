@@ -109,7 +109,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 	time_t now_time;
 	int time_count;
 	int fdcount;
-	struct mosquitto *context, *ctxt_tmp;
+	struct mosquitto *context = NULL, *ctxt_tmp =  NULL;
 #ifndef WIN32
 	sigset_t sigblock, origsig;
 #endif
@@ -747,6 +747,7 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 				printf("6.3.2\n");
 				//HASH_DELETE(hh_id, db->contexts_by_id, context);
 				printf("6.3.3\n");
+				
 				mosquitto__free(context->id);
 				printf("6.3.4\n");
 				context->id = NULL;
