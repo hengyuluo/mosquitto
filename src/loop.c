@@ -250,6 +250,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 												node_context->node->name);
 				node_context->ping_t = 0;
 				node_context->node->handshaked = false;
+				printf("%d\n", __LINE__);
 				do_disconnect(db, node_context);
 				continue;
 			}
@@ -258,6 +259,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 				if(send__pingreq(node_context)){
 					log__printf(NULL, MOSQ_LOG_ERR, "[HANDSHAKE] Failed in send PINGREQ with node: %s, close node and reconnect later.",
 													node_context->node->name);
+					printf("%d\n", __LINE__);
 					do_disconnect(db, node_context);
 				}
 				node_context->next_pingreq += node_context->keepalive;
@@ -382,6 +384,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 						pollfd_index++;
 #endif
 					}else{
+						printf("%d\n", __LINE__);
 						do_disconnect(db, context);
 					}
 				}else{
@@ -394,6 +397,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 						log__printf(NULL, MOSQ_LOG_NOTICE, "Client %s has exceeded timeout, disconnecting.", id);
 					}
 					/* Client has exceeded keepalive*1.5 */
+					printf("%d\n", __LINE__);
 					do_disconnect(db, context);
 				}
 			}
@@ -541,6 +545,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 						G_CLIENTS_EXPIRED_INC();
 						context->clean_session = true;
 						context->state = mosq_cs_expiring;
+						printf("%d\n", __LINE__);
 						do_disconnect(db, context);
 					}
 				}
@@ -747,7 +752,7 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 				printf("6.3.2\n");
 				//HASH_DELETE(hh_id, db->contexts_by_id, context);
 				printf("6.3.3\n");
-				
+				printf("%x\n", context->id);
 				mosquitto__free(context->id);
 				printf("6.3.4\n");
 				context->id = NULL;
