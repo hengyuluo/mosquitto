@@ -859,6 +859,7 @@ static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pol
 #endif
 			do{
 				if(packet__read(db, context)){
+					printf("loop1 packet_read down\n");
 					do_disconnect(db, context);
 					continue;
 				}
