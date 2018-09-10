@@ -173,13 +173,6 @@ int mosquitto_auth_acl_check(void *user_data, int access, const struct mosquitto
 #include "mosquitto_internal.h" 
 int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, const char *username, const char *password)
 {
-	//if(user_data)
-	//{
-	//	free(user_data);
-	//	user_data = NULL;
-	//}
-	printf("errorrrrrrrrrrrrrrr\n");
-	return MOSQ_ERR_AUTH;
 //	struct mosquitto *ptest = (struct mosquitto *)client;
 //	printf("=============================user_data=%s\n",(char*)user_data);	
 	
@@ -427,12 +420,6 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 		printf("password error\n");
 		free(combination);
 		combination = NULL;
-		//if(user_data)
-		//{
-		//	free(user_data);
-		//	user_data = NULL;
-		//}
-
 		return MOSQ_ERR_AUTH;
 	}
 }
