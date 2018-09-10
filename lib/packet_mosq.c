@@ -583,8 +583,10 @@ int packet__read(struct mosquitto *mosq)
 	if(((mosq->in_packet.command)&0xF5) == PUBLISH){
 		G_PUB_MSGS_RECEIVED_INC(1);
 	}
+	printf("goto handle__packet1\n");
 	rc = handle__packet(db, mosq);
 #else
+	printf("goto handle__packet2\n");
 	rc = handle__packet(mosq);
 #endif
 
