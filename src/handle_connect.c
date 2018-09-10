@@ -708,7 +708,8 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 		}
 	}
 
-	context->id = client_id;
+	//context->id = client_id;
+	memcpy(context->id, client_id, strlen(client_id));
 	client_id = NULL;
 	context->clean_session = clean_session;
 	context->ping_t = 0;
