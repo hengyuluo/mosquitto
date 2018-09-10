@@ -748,7 +748,7 @@ handle_connect_error:
 	if(client_cert) X509_free(client_cert);
 #endif
 	/* We return an error here which means the client is freed later on. */
-	printf("7777777777777777777777\n");
+	printf("handle_connect return\n");
 	return rc;
 }
 
