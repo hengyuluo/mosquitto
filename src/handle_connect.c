@@ -513,11 +513,11 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 				case MOSQ_ERR_SUCCESS:
 					break;
 				case MOSQ_ERR_AUTH:
-					printf("goto send__connack:\n");
+					//printf("goto send__connack:\n");
 					send__connack(context, 0, CONNACK_REFUSED_NOT_AUTHORIZED);
-					printf("goto context__disconnnect\n");
+					//printf("goto context__disconnnect\n");
 					context__disconnect(db, context);
-					printf("finish context__disconnect\n");
+					//printf("finish context__disconnect\n");
 					rc = 1;
 					goto handle_connect_error;
 					//printf("77777777777777777777\n");
@@ -731,19 +731,19 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 	return send__connack(context, connect_ack, CONNACK_ACCEPTED);
 
 handle_connect_error:
-	printf("0000000000000000000000\n");
+	//printf("0000000000000000000000\n");
 	mosquitto__free(client_id);
-	printf("1111111111111111111111\n");
+	//printf("1111111111111111111111\n");
 	mosquitto__free(username);
-	printf("2222222222222222222222\n");
+	//printf("2222222222222222222222\n");
 	mosquitto__free(password);
-	printf("3333333333333333333333\n");
+	//printf("3333333333333333333333\n");
 	mosquitto__free(will_payload);
-	printf("4444444444444444444444\n");
+	//printf("4444444444444444444444\n");
 	mosquitto__free(will_topic);
-	printf("5555555555555555555555\n");
+	//printf("5555555555555555555555\n");
 	mosquitto__free(will_struct);
-	printf("6666666666666666666666\n");
+	//printf("6666666666666666666666\n");
 #ifdef WITH_TLS
 	if(client_cert) X509_free(client_cert);
 #endif
