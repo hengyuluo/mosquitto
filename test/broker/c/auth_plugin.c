@@ -416,7 +416,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 		printf("%s", "no such sighMethod!");
 		return MOSQ_ERR_AUTH;
 		}*/
-	if(strncmp(combination, password) == 0){
+	if(strncmp(combination, password, strlen(combination)) == 0){
 		printf("welcome\n");
 		free(combination);
 		combination = NULL;
