@@ -178,15 +178,6 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	//	free(user_data);
 	//	user_data = NULL;
 	//}
-	if(client->id){
-		printf("6.3.2\n");
-		//HASH_DELETE(hh_id, db->contexts_by_id, context);
-		printf("6.3.3\n");
-		mosquitto__free(client->id);
-		printf("6.3.4\n");
-		client->id = NULL;
-		printf("6.3.5\n");
-	}
 	printf("errorrrrrrrrrrrrrrr\n");
 	return MOSQ_ERR_AUTH;
 //	struct mosquitto *ptest = (struct mosquitto *)client;
