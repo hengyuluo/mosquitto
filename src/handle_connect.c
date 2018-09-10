@@ -520,7 +520,7 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 					//printf("33333333333333333333333333\n");
 					rc = 1;
 					goto handle_connect_error;
-					printf("0000000000000000000\n");
+					printf("77777777777777777777\n");
 					break;
 				default:
 					context__disconnect(db, context);
