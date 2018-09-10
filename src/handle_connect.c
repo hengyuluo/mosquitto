@@ -513,14 +513,14 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 				case MOSQ_ERR_SUCCESS:
 					break;
 				case MOSQ_ERR_AUTH:
-					//printf("11111111111111111111111111\n");
+					printf("goto send__connack:\n");
 					send__connack(context, 0, CONNACK_REFUSED_NOT_AUTHORIZED);
-					//printf("22222222222222222222222222\n");
+					printf("goto context__disconnnect\n");
 					context__disconnect(db, context);
-					//printf("33333333333333333333333333\n");
+					printf("finish context__disconnect\n");
 					rc = 1;
 					goto handle_connect_error;
-					printf("77777777777777777777\n");
+					//printf("77777777777777777777\n");
 					break;
 				default:
 					context__disconnect(db, context);
@@ -748,6 +748,7 @@ handle_connect_error:
 	if(client_cert) X509_free(client_cert);
 #endif
 	/* We return an error here which means the client is freed later on. */
+	printf("7777777777777777777777\n");
 	return rc;
 }
 
