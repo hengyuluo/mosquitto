@@ -393,6 +393,7 @@ int socks5__read(struct mosquitto *mosq)
 			}
 		}
 	}else{
+		printf("socks goto packet__read\n");
 		return packet__read(mosq);
 	}
 	return MOSQ_ERR_SUCCESS;
