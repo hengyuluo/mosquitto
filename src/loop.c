@@ -671,6 +671,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 
 void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 {
+	printf("loop.c start do_disconnect\n");
 	char *id;
 #ifdef WITH_EPOLL
 	struct epoll_event ev;
