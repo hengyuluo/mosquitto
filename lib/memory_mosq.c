@@ -59,12 +59,14 @@ void mosquitto__free(void *mem)
 	//printf("%s,%d, %x\n", __FUNCTION__, __LINE__, mem);
 #ifdef REAL_WITH_MEMORY_TRACKING
 	if(!mem){
+		printf("****************************\n");
 		return;
 	}
 	memcount -= malloc_usable_size(mem);	
 #endif
 	if(mem)
 	{
+		printf("****************************\n");
 		free(mem);
 		mem = NULL;
 	}
