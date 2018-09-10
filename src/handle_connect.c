@@ -108,7 +108,7 @@ void connection_check_acl(struct mosquitto_db *db, struct mosquitto *context, st
 
 int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 {
-	printf("9999999999999999999999999999\n");
+	//printf("9999999999999999999999999999\n");
 	char protocol_name[7];
 	uint8_t protocol_version;
 	uint8_t connect_flags;
@@ -508,7 +508,7 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 		if(username_flag){
 			context->id = client_id;
 			rc = mosquitto_unpwd_check(db, context, username, password);
-			printf("00000000000000000000context0000000000000000000 = %s\n", context->id);
+			//printf("00000000000000000000context0000000000000000000 = %s\n", context->id);
 			switch(rc){
 				case MOSQ_ERR_SUCCESS:
 					break;
@@ -528,11 +528,11 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 					goto handle_connect_error;
 					break;
 			}
-			printf("aaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+			//printf("aaaaaaaaaaaaaaaaaaaaaaaaaa\n");
 			context->username = username;
-			printf("bbbbbbbbbbbbbbbbbbbbbbbbbb\n");
+			//printf("bbbbbbbbbbbbbbbbbbbbbbbbbb\n");
 			context->password = password;
-			printf("cccccccccccccccccccccccccc\n");
+			//printf("cccccccccccccccccccccccccc\n");
 			username = NULL; /* Avoid free() in error: below. */
 			password = NULL;
 		}
