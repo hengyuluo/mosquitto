@@ -727,12 +727,15 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 				log__printf(NULL, MOSQ_LOG_NOTICE, "Client %s disconnected.", id);
 			}
 		}
+		printf("6.1\n");
 #ifdef WITH_EPOLL
 		if (context->sock != INVALID_SOCKET && epoll_ctl(db->epollfd, EPOLL_CTL_DEL, context->sock, &ev) == -1) {
 			log__printf(NULL, MOSQ_LOG_DEBUG, "Error in epoll disconnecting: %s", strerror(errno));
 		}
+		printf("6.2\n");
 #endif
 		context__disconnect(db, context);
+		printf("6.3\n");
 #ifdef WITH_BRIDGE
 		if(context->clean_session && !context->bridge){
 #else
@@ -744,8 +747,10 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 				mosquitto__free(context->id);
 				context->id = NULL;
 			}
+			printf("6.4\n");
 		}
 		context->state = mosq_cs_disconnected;
+		printf("6.5\n");
 	}
 	printf("7\n");
 }
