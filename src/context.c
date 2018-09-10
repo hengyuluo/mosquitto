@@ -178,6 +178,7 @@ void context__cleanup(struct mosquitto_db *db, struct mosquitto *context, bool d
 					   CONNECT and hence wouldn't have an id. */
 
 		HASH_DELETE(hh_id, db->contexts_by_id, context);
+		printf("***********%s, %d,\n", __FUNCTION__, __LINE__);
 		mosquitto__free(context->id);
 		context->id = NULL;
 	}
