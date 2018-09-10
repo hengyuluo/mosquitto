@@ -32,6 +32,7 @@ Contributors:
 
 int handle__packet(struct mosquitto_db *db, struct mosquitto *context)
 {
+	printf("handle__packet\n");
 	if(!context) return MOSQ_ERR_INVAL;
 
 	switch((context->in_packet.command)&0xF0){
