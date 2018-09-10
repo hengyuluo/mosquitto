@@ -243,7 +243,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //	char *split = "&";
 //	printf("ttttttttttttttttttttt%s\ntttttttttttttttttttt", split);
 	char tempUsername[100];
-	strcpy(tempUsername, username);
+	strncpy(tempUsername, username);
 	printf("temoUsnm:");
 	printf("%s",tempUsername);
 	printf("\n");
@@ -416,7 +416,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 		printf("%s", "no such sighMethod!");
 		return MOSQ_ERR_AUTH;
 		}*/
-	if(strcmp(combination, password) == 0){
+	if(strncmp(combination, password) == 0){
 		printf("welcome\n");
 		free(combination);
 		combination = NULL;
