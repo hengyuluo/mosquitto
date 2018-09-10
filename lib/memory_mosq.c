@@ -60,6 +60,10 @@ void mosquitto__free(void *mem)
 		return;
 	}
 	memcount -= malloc_usable_size(mem);
+
+	free(mem);
+	mem = NULL;
+	
 #endif
 	if(mem)
 	{
