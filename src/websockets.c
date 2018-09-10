@@ -381,6 +381,7 @@ static int callback_mqtt(struct libwebsocket_context *context,
 					G_PUB_MSGS_RECEIVED_INC(1);
 				}
 #endif
+				printf("goto handle__packet\n");
 				rc = handle__packet(db, mosq);
 
 				/* Free data and reset values */
@@ -389,12 +390,16 @@ static int callback_mqtt(struct libwebsocket_context *context,
 				mosq->last_msg_in = mosquitto_time();
 
 				if(rc && (mosq->out_packet || mosq->current_out_packet)) {
+					printf("if 1:\n");
 					if(mosq->state != mosq_cs_disconnecting){
+						printf("if 1.1:\n");
 						mosq->state = mosq_cs_disconnect_ws;
 					}
 					libwebsocket_callback_on_writable(mosq->ws_context, mosq->wsi);
 				} else if (rc) {
+					printf("if 2:\n");
 					do_disconnect(db, mosq);
+					printf("finish do_disconnect\n");
 					return -1;
 				}
 			}
