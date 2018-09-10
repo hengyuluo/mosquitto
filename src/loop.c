@@ -745,7 +745,7 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 			printf("6.3.1\n");
 			if(context->id){
 				printf("6.3.2\n");
-				HASH_DELETE(hh_id, db->contexts_by_id, context);
+				//HASH_DELETE(hh_id, db->contexts_by_id, context);
 				printf("6.3.3\n");
 				mosquitto__free(context->id);
 				printf("6.3.4\n");
