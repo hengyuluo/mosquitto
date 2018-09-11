@@ -453,7 +453,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	realSecureMode = NULL;
 	realTimeStamp = NULL;
 	realSignMethod = NULL;
-	char *hashResult = hmacsha1(combination, productSecret);
+	char *hashResult = hmacsha1(productSecret, combination);
 	free(productSecret);
 	productSecret = NULL;
 	printf("hash:%s\n", hashResult);
