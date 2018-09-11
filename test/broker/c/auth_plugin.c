@@ -63,19 +63,18 @@ char *login_check(char *deviceName, char *productKey)
         int iNum_rows = mysql_num_rows(g_res);
 
 
-		char* ret = NULL;
+		char* result = NULL;
         if(iNum_rows == 0)
         {
-                ret = "0";
+                result = "0";
         }
         else
         {
                 g_row = mysql_fetch_row(g_res);
-				char *result = (char *)malloc(sizeof(char) * strlen(g_row[2]) + 1);
+				result = (char *)malloc(sizeof(char) * strlen(g_row[2]) + 1);
 				memset(result, 0, strlen(g_row[2]) + 1);
 				memcpy(result, g_row[2], strlen(g_row[2]));
                 //char *result = g_row[2];
-                ret = result;
         }
 
 		printf("address:  %x, %x, %x, %x, %x, %x\n", g_res, g_conn,g_host_name,  g_password, g_db_name, sql);
@@ -90,9 +89,10 @@ char *login_check(char *deviceName, char *productKey)
 		g_user_name = NULL;
 		g_password = NULL;
 		g_db_name = NULL;
-		free(sql);
-		sql = NULL;
-		return ret;
+		//free(sql);
+		//sql = NULL;
+
+		return result;
 }
 
 char *hmacsha1(char *key, char *data)
