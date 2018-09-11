@@ -62,9 +62,9 @@ extern bool flag_tree_print;
 extern int run;
 
 #ifdef WITH_EPOLL
-static void loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, uint32_t events);
+static int loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, uint32_t events);
 #else
-static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds);
+static int loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds);
 #endif
 
 #ifdef WITH_WEBSOCKETS
@@ -599,7 +599,10 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 					}
 				}
 				if (j == listensock_count) {
-					loop_handle_reads_writes(db, events[i].data.fd, events[i].events);
+					if(loop_handle_reads_writes(db, events[i].data.fd, events[i].events))
+					{
+						return;
+					}
 				}
 			}
 		}
@@ -774,9 +777,9 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 
 
 #ifdef WITH_EPOLL
-static void loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, uint32_t events)
+static int loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, uint32_t events)
 #else
-static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds)
+static int loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds)
 #endif
 {
 	struct mosquitto *context;
@@ -893,8 +896,8 @@ static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pol
 					printf("loop1 packet_read down\n");
 					do_disconnect(db, context);
 					printf("loop1 do_disconnect down\n");
-					//continue;
-					return;   
+					//continue; 
+					return -1;
 				}
 			}while(SSL_DATA_PENDING(context));
 			printf("88888888######8888888\n");
@@ -908,6 +911,8 @@ static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pol
 			continue;
 		}
 	}
+
+	return 0;
 }
 
 
