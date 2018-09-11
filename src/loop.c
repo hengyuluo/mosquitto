@@ -99,6 +99,8 @@ static void temp__expire_websockets_clients(struct mosquitto_db *db)
 
 int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int listensock_count, int listener_max)
 {
+	printf("################: %x\n", db->contexts_by_id);
+
 #ifdef WITH_SYS_TREE
 	time_t start_time = mosquitto_time();
 #endif
