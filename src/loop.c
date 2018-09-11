@@ -883,6 +883,7 @@ static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pol
 		if(pollfds[context->pollfd_index].revents & POLLIN){
 #endif
 #endif
+			printf("88888888888888\n");
 			do{
 				if(packet__read(db, context)){
 					printf("loop1 packet_read down\n");
@@ -891,6 +892,7 @@ static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pol
 					continue;
 				}
 			}while(SSL_DATA_PENDING(context));
+			printf("88888888######8888888\n");
 		}
 #ifdef WITH_EPOLL
 		if(events & (EPOLLERR | EPOLLHUP)){

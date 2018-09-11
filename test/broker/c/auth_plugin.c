@@ -264,9 +264,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	printf("deviceName:");
     printf("%s", deviceName);
 	printf("\n");
-	printf("productKey:");
-	printf("%s", productKey);
-	printf("\n");
+	printf("productKey:%s\n", productKey);
 
 	memcpy(productSecret, login_check(deviceName, productKey), 100);
 	printf("search done");
