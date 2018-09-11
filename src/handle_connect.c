@@ -710,12 +710,12 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 		}
 	}
 
-	//context->id = client_id;
+	context->id = client_id;
 	//context->id = (char*)malloc(sizeof(char) * strlen(client_id));
 	//printf("context->id address %x\n", context->id);
 	//printf("client_id address %x\n", client_id);
 	//memset(context->id, 0, strlen(client_id));
-	memcpy(context->id, client_id, strlen(client_id));
+	//memcpy(context->id, client_id, strlen(client_id));
 	client_id = NULL;
 	context->clean_session = clean_session;
 	context->ping_t = 0;
@@ -727,6 +727,7 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 	connection_check_acl(db, context, &context->inflight_msgs);
 	connection_check_acl(db, context, &context->queued_msgs);
 	printf("2\n");
+	printf("contextID:%s\n", context->id);
 	HASH_ADD_KEYPTR(hh_id, db->contexts_by_id, context->id, strlen(context->id), context);
 	printf("3\n");
 #ifdef WITH_PERSISTENCE
