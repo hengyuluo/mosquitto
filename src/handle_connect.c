@@ -712,11 +712,8 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 		}
 	}
 
-	if(client_id != NULL)
-	{
-		context->id = client_id;
-	}
-	
+
+	context->id = client_id;	
 	//context->id = (char*)malloc(sizeof(char) * strlen(client_id));
 	//printf("context->id address %x\n", context->id);
 	//printf("client_id address %x\n", client_id);
