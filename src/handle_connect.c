@@ -507,7 +507,7 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 #endif /* WITH_TLS */
 		if(username_flag){
 			printf("********* %s, %d\n", __FUNCTION__, __LINE__);
-			
+			context->id = client_id;
 			//client_id = NULL;
 			rc = mosquitto_unpwd_check(db, context, username, password);
 			//printf("00000000000000000000context0000000000000000000 = %s\n", context->id);
