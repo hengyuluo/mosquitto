@@ -277,7 +277,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 
 	//char *productSecret = (char*)malloc((sizeof(char) * 100));
 	//memset(productSecret, 0, sizeof(char) * 100);
-	printf("before_productSecret:%s\n", productSecret);
+	//printf("before_productSecret:%s\n", productSecret);
 	printf("deviceName:");
     printf("%s", deviceName);
 	printf("\n");
