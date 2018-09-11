@@ -33,7 +33,7 @@ char *login_check(char *deviceName, char *productKey)
 		printf("\n");
 		return "-1";
 	}
-		printf("2\n");
+		printf("2:   %x\n", g_conn);
 
         if (mysql_real_query(g_conn,"set names utf8", strlen("set names utf8")))
                 return "-1";
