@@ -23,7 +23,7 @@ char *login_check(char *deviceName, char *productKey)
         const char *g_db_name = "mosquitto_test";
         const unsigned int g_db_port = 3306;
         const int MAX_SIZE = 1024;
-
+		printf("1\n");
         //g_conn = mysql_init(NULL);
 
         /* connect the database */
@@ -33,14 +33,14 @@ char *login_check(char *deviceName, char *productKey)
 		printf("\n");
 		return "-1";
 	}
-
+		printf("2\n");
 
         if (mysql_real_query(g_conn,"set names utf8", strlen("set names utf8")))
                 return "-1";
 
 //        if (init_mysql());
 //        print_mysql_error(NULL);
-
+		printf("3\n");
 		char *sql = (char*)malloc(sizeof(char) * MAX_SIZE);
 		memset(sql, 0, MAX_SIZE);
        // char sql[MAX_SIZE];
@@ -50,7 +50,6 @@ char *login_check(char *deviceName, char *productKey)
         strcat(sql, "productKey = '");
         strcat(sql, productKey);
         strcat(sql, "' ");
-	
 	printf("%s", "query:");
 	printf("%s", sql);
 	printf("\n");
