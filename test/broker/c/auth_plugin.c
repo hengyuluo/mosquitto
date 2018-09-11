@@ -418,10 +418,10 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	split = NULL;
 	free(deviceName);
 	free(productKey);
-	free(productSecret);
+
 	deviceName = NULL;
 	productKey = NULL;
-	productSecret = NULL;
+
 //	free(clientID);
 
 	//if(user_data)
@@ -454,6 +454,9 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	realTimeStamp = NULL;
 	realSignMethod = NULL;
 	char *hashResult = hmacsha1(combination, productSecret);
+	free(productSecret);
+	productSecret = NULL;
+	printf("hash:%s\n", hashResult);
 /*	if(strcmp(realSignMethod, "hmacsha1") == 0)
 	{
 		char *Hash_result = hmacsha1(combination, productSecret);
@@ -473,7 +476,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 		printf("%s", "no such sighMethod!");
 		return MOSQ_ERR_AUTH;
 		}*/
-	if(strncmp(combination, password, strlen(combination)) == 0){
+	if(strncmp(hashResult, password, strlen(combination)) == 0){
 		printf("welcome\n");
 		free(combination);
 		combination = NULL;
