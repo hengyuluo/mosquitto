@@ -80,7 +80,10 @@ char *login_check(char *deviceName, char *productKey)
         else
         {
                 g_row = mysql_fetch_row(g_res);
-                char *result = g_row[2];
+				char *result = (char *)malloc(sizeof(char) * strlen(g_row[2]) + 1);
+				memset(result, 0, strlen(g_row[2]) + 1);
+				memcpy(result, g_row[2], strlen(g_row[2]));
+                //char *result = g_row[2];
                 mysql_free_result(g_res);
                 mysql_close(g_conn);
 				free(g_host_name);
@@ -95,17 +98,6 @@ char *login_check(char *deviceName, char *productKey)
 				sql = NULL;
                 return result;
         }
-	mysql_free_result(g_res);
-	free(g_host_name);
-    free(g_user_name);
-    free(g_password);
-    free(g_db_name);
-	g_host_name = NULL;
-	g_user_name = NULL;
-	g_password = NULL;
-	g_db_name = NULL;
-	free(sql);
-	sql = NULL;
 }
 
 char *hmacsha1(char *key, char *data)
