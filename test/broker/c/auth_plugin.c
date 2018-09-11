@@ -261,13 +261,15 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	printf("deviceName:");
     printf("%s", deviceName);
 	printf("\n");
+	printf("productKey:");
+	printf("%s", productKey);
+	printf("\n");
 
 	memcpy(productSecret, login_check(deviceName, productKey), strlen(login_check(deviceName, productKey)));
 	printf("search done");
 	printf("\n");
-	printf("productKey:");
-        printf("%s", productKey);
-        printf("\n");
+	printf("productSecret:%s\n", productSecret);
+
 /*	if(strcmp(productSecret, "0") == 0)
 	{
 		printf("%s", "user does not exist.");
