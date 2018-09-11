@@ -723,18 +723,19 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 	if((protocol_version&0x80) == 0x80){
 		context->is_bridge = true;
 	}
-
+	printf("1\n");
 	connection_check_acl(db, context, &context->inflight_msgs);
 	connection_check_acl(db, context, &context->queued_msgs);
-
+	printf("2\n");
 	HASH_ADD_KEYPTR(hh_id, db->contexts_by_id, context->id, strlen(context->id), context);
-
+	printf("3\n");
 #ifdef WITH_PERSISTENCE
 	if(!clean_session){
 		db->persistence_changes++;
 	}
 #endif
 	context->state = mosq_cs_connected;
+	printf("4\n");
 	return send__connack(context, connect_ack, CONNACK_ACCEPTED);
 
 handle_connect_error:
