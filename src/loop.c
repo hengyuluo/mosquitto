@@ -566,8 +566,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 #else
 		fdcount = WSAPoll(pollfds, pollfd_index, 100);
 #endif
-#ifdef WITH_EPOLL
-		printf("98765432100000: %d\n", fdcount);
+#ifdef WITH_EPOLL		
 		switch(fdcount){
 		case -1:
 			if(errno != EINTR){
@@ -577,6 +576,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 		case 0:
 			break;
 		default:
+			printf("98765432100000: %d\n", fdcount);
 			for(i=0; i<fdcount; i++){
 				for(j=0; j<listensock_count; j++){
 					if (events[i].data.fd == listensock[j]) {
