@@ -125,19 +125,22 @@ char *hmacsha1(char *key, char *data)
 
         return result;
 	*/
-
+	printf("1\n");
     unsigned char digest[EVP_MAX_MD_SIZE] = {'\0'};
+	printf("2\n");
     unsigned int digest_len = 0;
-
+	printf("3\n");
     // Using sha1 hash engine here.
     // You may use other hash engines. e.g EVP_md5(), EVP_sha224, EVP_sha512, etc
     HMAC(EVP_sha1(), key, strlen(key), (unsigned char*)data, strlen(data), digest, &digest_len);
+	printf("4\n");
     printf("%s, len %u\n", digest, digest_len);
 
     // Be careful of the length of string with the choosen hash engine. SHA1 produces a 20-byte hash value which rendered as 40 characters.
     // Change the length accordingly with your choosen hash engine
     char *mdString = (char*)malloc(sizeof(char) * 100);
     memset(mdString, 0, 100);
+	printf("5\n");
     for(int i = 0; i < 20; i++)
          sprintf(&mdString[i*2], "%02x", (unsigned int)digest[i]);
 
