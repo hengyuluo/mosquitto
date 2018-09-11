@@ -228,16 +228,18 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
         printf("%s", password);
 	printf("\n");
 	char *split = (char*)malloc(sizeof(char) * 2);
-	printf("333333333333333");
+	//printf("333333333333333");
 	memset(split, 0, 2);
-	printf("222222222222222222");
+	//printf("222222222222222222");
 	memcpy(split, "&", 2);
-	printf("11111111111111111111111111111111111111111");
+	//printf("11111111111111111111111111111111111111111");
 //	char *split = "&";
 //	printf("ttttttttttttttttttttt%s\ntttttttttttttttttttt", split);
-	char tempUsername[100];
-	strncpy(tempUsername, username, strlen(username));
-	printf("temoUsnm:");
+	char *tempUsername = (char*)malloc(sizeof(char) * 100);
+	memset(tempUsername, 0, 100);
+	//char tempUsername[100];
+	memcpy(tempUsername, username, strlen(username));
+	printf("tempUsername:");
 	printf("%s",tempUsername);
 	printf("\n");
 
