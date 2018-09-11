@@ -255,8 +255,8 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	memset(deviceName, 0, 100);
 	char *productKey = (char*)malloc(sizeof(char) * 100);
 	memset(productKey, 0, 100);
-	memcpy(deviceName, strtok(tempUsername, split), strlen(strtok(tempUsername, split)));
-	memcpy(productKey, strtok(NULL,split), strlen(strtok(NULL,split)));
+	memcpy(deviceName, strtok(tempUsername, split), 100);
+	memcpy(productKey, strtok(NULL,split), 100);
 
 	char *productSecret = (char*)malloc((sizeof(char) * 1024));
 	memset(productSecret, 0, sizeof(char) * 1024);
@@ -268,7 +268,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	printf("%s", productKey);
 	printf("\n");
 
-	memcpy(productSecret, login_check(deviceName, productKey), strlen(login_check(deviceName, productKey)));
+	memcpy(productSecret, login_check(deviceName, productKey), 100);
 	printf("search done");
 	printf("\n");
 	printf("productSecret:%s\n", productSecret);
@@ -312,34 +312,34 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	printf("tempClientIDLength%d,%d\n", strlen(tempClientID),sizeof(tempClientID));
 	char *ID = (char*)malloc(sizeof(char) * 100);
 	memset(ID, 0, 100);
-	memcpy(ID, strtok(tempClientID, split), strlen(strtok(tempClientID, split)));
+	memcpy(ID, strtok(tempClientID, split), 100);
 	//char *ID = strtok(tempClientID, split);
 	printf("ID:%s\n",ID);
 	memcpy(split, ",", 2);
 	char *secureMode = (char*)malloc(sizeof(char) * 100);
 	memset(secureMode, 0, 100);
-	memcpy(secureMode, strtok(NULL, split), strlen(strtok(NULL, split)));
+	memcpy(secureMode, strtok(NULL, split), 100);
 	//char *secureMode = strtok(NULL, split);
 	printf("secureMode:%s\n",secureMode);
 	char *sighMethod = (char*)malloc(sizeof(char) * 100);
-	memcpy(sighMethod, strtok(NULL, split), strlen(strtok(NULL, split)));
+	memcpy(sighMethod, strtok(NULL, split), 100);
 	//char *sighMethod = strtok(NULL, split);
 	printf("sighMethod:%s\n",sighMethod);
 
 	memcpy(split, "|", 2);
 	char *timeStamp = (char*)malloc(sizeof(char) * 100);
 	memset(timeStamp, 0, 100);
-	memcpy(timeStamp, strtok(NULL, split), strlen(strtok(NULL, split)));
+	memcpy(timeStamp, strtok(NULL, split), 100);
 	//char *timeStamp = strtok(NULL, split);
 	printf("timeStamp:%s\n",timeStamp);
 
 	memcpy(split, "=", 1);
 	char *temp = (char *)malloc(sizeof(char) * 100);
 	memset(temp, 0, 100);
-	memcpy(temp, strtok(secureMode, split), strlen(strtok(secureMode, split)));
+	memcpy(temp, strtok(secureMode, split), 100);
 	//temp = strtok(secureMode, split);
 	char *realSecureMode = (char*)malloc(sizeof(char) * 100);
-	memcpy(realSecureMode, strtok(NULL, ""), strlen(strtok(NULL, "")));
+	memcpy(realSecureMode, strtok(NULL, ""), 100);
 	//char *realSecureMode = strtok(NULL, "");
 	printf("realSecureMode:%s\n",realSecureMode);
 
@@ -351,19 +351,19 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	char *realProductKey = strtok(NULL, "");
 	printf("realProductKey:%s\n",realProductKey);
 */
-	memcpy(temp, strtok(timeStamp, split),strlen(strtok(timeStamp, split)));
+	memcpy(temp, strtok(timeStamp, split), 100);
 	//temp = strtok(timeStamp, split);
 	char *realTimeStamp = (char*)malloc(sizeof(char) * 100);
 	memset(realTimeStamp, 0, 100);
-	memcpy(realTimeStamp, strtok(NULL, ""), strlen(strtok(NULL, "")));
+	memcpy(realTimeStamp, strtok(NULL, ""), 100);
 	//char *realTimeStamp = strtok(NULL, "");
 	printf("realTimeStamp:%s\n",realTimeStamp);
 
-	memcpy(temp, strtok(sighMethod, split), strlen(strtok(sighMethod, split)));
+	memcpy(temp, strtok(sighMethod, split), 100);
 	//temp = strtok(sighMethod, split);
 	char *realSignMethod = (char*)malloc(sizeof(char) * 100);
 	memset(realSignMethod, 0, 100);
-	memcpy(realSignMethod, strtok(NULL, ""), strlen(strtok(NULL, "")));
+	memcpy(realSignMethod, strtok(NULL, ""), 100);
 	//char *realSignMethod = strtok(NULL, "");
 	printf("realSIghMEthod:%s\n",realSignMethod);
 
