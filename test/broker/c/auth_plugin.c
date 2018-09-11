@@ -37,16 +37,14 @@ char *login_check(char *deviceName, char *productKey)
 	}
 		printf("2:   %x\n", g_conn);
 
-  //      if (mysql_real_query(g_conn,"set names utf8", strlen("set names utf8")))
-		//{
-		//	printf("333\n");
-		//	return "-1";
-		//}
-		//g_res = mysql_store_result(g_conn);
-		//mysql_free_result(g_res);
+		if (mysql_real_query(g_conn,"set names utf8", strlen("set names utf8")))
+		{
+			printf("333\n");
+			return "-1";
+		}
+		g_res = mysql_store_result(g_conn);
+		mysql_free_result(g_res);
 
-//        if (init_mysql());
-//        print_mysql_error(NULL);
 		printf("3\n");
 		char *sql = (char*)malloc(sizeof(char) * MAX_SIZE);
 		memset(sql, 0, MAX_SIZE);
