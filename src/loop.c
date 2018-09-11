@@ -580,6 +580,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 				for(j=0; j<listensock_count; j++){
 					if (events[i].data.fd == listensock[j]) {
 						if (events[i].events & (EPOLLIN | EPOLLPRI)){
+							printf("98765432100000\n");
 							while((ev.data.fd = net__socket_accept(db, listensock[j])) != -1){
 								ev.events = EPOLLIN;
 								if (epoll_ctl(db->epollfd, EPOLL_CTL_ADD, ev.data.fd, &ev) == -1) {
@@ -609,6 +610,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 
 			for(i=0; i<listensock_count; i++){
 				if(pollfds[i].revents & (POLLIN | POLLPRI)){
+						printf("98765431\n");
 					while(net__socket_accept(db, listensock[i]) != -1){
 						printf("123456789\n");
 					}
