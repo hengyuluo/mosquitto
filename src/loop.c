@@ -893,7 +893,8 @@ static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pol
 					printf("loop1 packet_read down\n");
 					do_disconnect(db, context);
 					printf("loop1 do_disconnect down\n");
-					continue;
+					//continue;
+					return;   
 				}
 			}while(SSL_DATA_PENDING(context));
 			printf("88888888######8888888\n");
