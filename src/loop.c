@@ -62,9 +62,9 @@ extern bool flag_tree_print;
 extern int run;
 
 #ifdef WITH_EPOLL
-static int loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, uint32_t events);
+static void loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, uint32_t events);
 #else
-static int loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds);
+static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds);
 #endif
 
 #ifdef WITH_WEBSOCKETS
@@ -100,6 +100,7 @@ static void temp__expire_websockets_clients(struct mosquitto_db *db)
 int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int listensock_count, int listener_max)
 {
 	printf("################: %x\n", db->contexts_by_id);
+	bool connected = false;
 
 #ifdef WITH_SYS_TREE
 	time_t start_time = mosquitto_time();
@@ -576,6 +577,11 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 		case 0:
 			break;
 		default:
+			if(connected)
+			{
+				break;
+			}
+			connected = true;
 			printf("98765432100000: %d\n", fdcount);
 			for(i=0; i<fdcount; i++){
 				for(j=0; j<listensock_count; j++){
@@ -599,10 +605,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 					}
 				}
 				if (j == listensock_count) {
-					if(loop_handle_reads_writes(db, events[i].data.fd, events[i].events))
-					{
-						return;
-					}
+					loop_handle_reads_writes(db, events[i].data.fd, events[i].events);
 				}
 			}
 		}
@@ -777,9 +780,9 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 
 
 #ifdef WITH_EPOLL
-static int loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, uint32_t events)
+static void loop_handle_reads_writes(struct mosquitto_db *db, mosq_sock_t sock, uint32_t events)
 #else
-static int loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds)
+static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pollfds)
 #endif
 {
 	struct mosquitto *context;
