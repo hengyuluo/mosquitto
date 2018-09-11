@@ -100,7 +100,6 @@ static void temp__expire_websockets_clients(struct mosquitto_db *db)
 int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int listensock_count, int listener_max)
 {
 	printf("################: %x\n", db->contexts_by_id);
-	bool connected = false;
 
 #ifdef WITH_SYS_TREE
 	time_t start_time = mosquitto_time();
@@ -577,36 +576,32 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 		case 0:
 			break;
 		default:
-			if(!connected)
-			{
-				connected = true;
-				printf("98765432100000: %d\n", fdcount);
-				for(i=0; i<fdcount; i++){
-					for(j=0; j<listensock_count; j++){
-						if (events[i].data.fd == listensock[j]) {
-							if (events[i].events & (EPOLLIN | EPOLLPRI)){
-								printf("98765432100000\n");
-								while((ev.data.fd = net__socket_accept(db, listensock[j])) != -1){
-									ev.events = EPOLLIN;
-									if (epoll_ctl(db->epollfd, EPOLL_CTL_ADD, ev.data.fd, &ev) == -1) {
-										log__printf(NULL, MOSQ_LOG_ERR, "Error in epoll accepting: %s", strerror(errno));
-									}
-									context = NULL;
-									HASH_FIND(hh_sock, db->contexts_by_sock, &(ev.data.fd), sizeof(mosq_sock_t), context);
-									if(!context) {
-										log__printf(NULL, MOSQ_LOG_ERR, "Error in epoll accepting: no context");
-									}
-									context->events = EPOLLIN;
+			printf("98765432100000: %d\n", fdcount);
+			for(i=0; i<fdcount; i++){
+				for(j=0; j<listensock_count; j++){
+					if (events[i].data.fd == listensock[j]) {
+						if (events[i].events & (EPOLLIN | EPOLLPRI)){
+							printf("98765432100000\n");
+							while((ev.data.fd = net__socket_accept(db, listensock[j])) != -1){
+								ev.events = EPOLLIN;
+								if (epoll_ctl(db->epollfd, EPOLL_CTL_ADD, ev.data.fd, &ev) == -1) {
+									log__printf(NULL, MOSQ_LOG_ERR, "Error in epoll accepting: %s", strerror(errno));
 								}
+								context = NULL;
+								HASH_FIND(hh_sock, db->contexts_by_sock, &(ev.data.fd), sizeof(mosq_sock_t), context);
+								if(!context) {
+									log__printf(NULL, MOSQ_LOG_ERR, "Error in epoll accepting: no context");
+								}
+								context->events = EPOLLIN;
 							}
-							break;
 						}
-					}
-					if (j == listensock_count) {
-						loop_handle_reads_writes(db, events[i].data.fd, events[i].events);
+						break;
 					}
 				}
-			}			
+				if (j == listensock_count) {
+					loop_handle_reads_writes(db, events[i].data.fd, events[i].events);
+				}
+			}
 		}
 #else
 		if(fdcount == -1){
