@@ -42,6 +42,8 @@ char *login_check(char *deviceName, char *productKey)
 			printf("333\n");
 			return "-1";
 		}
+		g_res = mysql_store_result(g_conn);
+		mysql_free_result(g_res);
 
 //        if (init_mysql());
 //        print_mysql_error(NULL);
