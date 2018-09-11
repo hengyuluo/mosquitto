@@ -14,7 +14,7 @@
 char *login_check(char *deviceName, char *productKey)
 {
         MYSQL *g_conn = mysql_init(NULL);
-        MYSQL_RES *g_res;
+        MYSQL_RES *g_res = NULL;
         MYSQL_ROW g_row;
 
         const char *g_host_name = "localhost";
@@ -41,7 +41,9 @@ char *login_check(char *deviceName, char *productKey)
 //        if (init_mysql());
 //        print_mysql_error(NULL);
 
-        char sql[MAX_SIZE];
+		char *sql = (char*)malloc(sizeof(char) * MAX_SIZE);
+		memset(sql, 0, MAX_SIZE);
+       // char sql[MAX_SIZE];
         sprintf(sql, "select deviceName, productKey, deviceSecret from user_login where deviceName = '");
         strcat(sql, deviceName);
         strcat(sql, "' and ");
@@ -63,6 +65,16 @@ char *login_check(char *deviceName, char *productKey)
         {
                 mysql_free_result(g_res);
                 mysql_close(g_conn);
+				free(g_host_name);
+				free(g_user_name);
+				free(g_password);
+				free(g_db_name);
+				g_host_name = NULL;
+				g_user_name = NULL;
+				g_password = NULL;
+				g_db_name = NULL;
+				free(sql);
+				sql = NULL;
                 return "0";
         }
         else
@@ -71,8 +83,19 @@ char *login_check(char *deviceName, char *productKey)
                 char *result = g_row[2];
                 mysql_free_result(g_res);
                 mysql_close(g_conn);
+				free(g_host_name);
+				free(g_user_name);
+				free(g_password);
+				free(g_db_name);
+				g_host_name = NULL;
+				g_user_name = NULL;
+				g_password = NULL;
+				g_db_name = NULL;
+				free(sql);
+				sql = NULL;
                 return result;
         }
+	mysql_free_result(g_res);
 	free(g_host_name);
     free(g_user_name);
     free(g_password);
@@ -81,6 +104,8 @@ char *login_check(char *deviceName, char *productKey)
 	g_user_name = NULL;
 	g_password = NULL;
 	g_db_name = NULL;
+	free(sql);
+	sql = NULL;
 }
 
 char *hmacsha1(char *key, char *data)
