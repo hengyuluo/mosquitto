@@ -515,7 +515,7 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 				case MOSQ_ERR_SUCCESS:
 					break;
 				case MOSQ_ERR_AUTH:
-					context->id = client_id;
+					//context->id = client_id;
 					printf("11111111111111111111111goto send__connack:\n");
 					send__connack(context, 0, CONNACK_REFUSED_NOT_AUTHORIZED);
 					//printf("goto context__disconnnect\n");
