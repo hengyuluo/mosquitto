@@ -577,11 +577,11 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 		case 0:
 			break;
 		default:
-			if(connected)
+			/*if(connected)
 			{
 				break;
 			}
-			connected = true;
+			connected = true;*/
 			printf("98765432100000: %d\n", fdcount);
 			for(i=0; i<fdcount; i++){
 				for(j=0; j<listensock_count; j++){
