@@ -89,8 +89,10 @@ char *login_check(char *deviceName, char *productKey)
 		g_user_name = NULL;
 		g_password = NULL;
 		g_db_name = NULL;
-		//free(sql);
-		//sql = NULL;
+		free(sql);
+		sql = NULL;
+
+		printf("89898989898989\n");
 
 		return result;
 }
