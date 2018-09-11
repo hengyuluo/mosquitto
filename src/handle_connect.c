@@ -534,7 +534,7 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 			context->username = username;
 			//printf("bbbbbbbbbbbbbbbbbbbbbbbbbb\n");
 			context->password = password;
-			//printf("cccccccccccccccccccccccccc\n");
+			printf("cccccccccccccccccccccccccc\n");
 			username = NULL; /* Avoid free() in error: below. */
 			password = NULL;
 		}
