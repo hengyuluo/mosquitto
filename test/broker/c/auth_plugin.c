@@ -386,9 +386,11 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 
 	free(split);
 	split = NULL;
-//	free(deviceName);
-//	free(productKey);
+	free(deviceName);
+	free(productKey);
 	free(productSecret);
+	deviceName = NULL;
+	productKey = NULL;
 	productSecret = NULL;
 //	free(clientID);
 
