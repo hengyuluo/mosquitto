@@ -80,15 +80,25 @@ char *login_check(char *deviceName, char *productKey)
 		printf("address:  %x, %x, %x, %x, %x, %x\n", g_res, g_conn,g_host_name,  g_password, g_db_name, sql);
 
 		mysql_free_result(g_res);
+		printf("1\n");
 		mysql_close(g_conn);
+		printf("2\n");
 		free(g_host_name);
+		printf("3\n");
 		free(g_user_name);
+		printf("4\n");
 		free(g_password);
+		printf("5\n");
 		free(g_db_name);
+		printf("5\n");
 		g_host_name = NULL;
+		printf("6\n");
 		g_user_name = NULL;
+		printf("7\n");
 		g_password = NULL;
+		printf("8\n");
 		g_db_name = NULL;
+		printf("9\n");
 		free(sql);
 		sql = NULL;
 
