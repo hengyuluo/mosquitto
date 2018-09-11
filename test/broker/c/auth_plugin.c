@@ -27,7 +27,8 @@ char *login_check(char *deviceName, char *productKey)
         //g_conn = mysql_init(NULL);
 
         /* connect the database */
-        if(!mysql_real_connect(g_conn, g_host_name, g_user_name, g_password, g_db_name, g_db_port, NULL, 0))
+		g_conn = mysql_real_connect(g_conn, g_host_name, g_user_name, g_password, g_db_name, g_db_port, NULL, 0);
+        if(!g_conn)
 	{
 		printf("%s", mysql_error(g_conn));
 		printf("\n");
