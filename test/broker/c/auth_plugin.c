@@ -49,7 +49,7 @@ char *login_check(char *deviceName, char *productKey)
 		char *sql = (char*)malloc(sizeof(char) * MAX_SIZE);
 		memset(sql, 0, MAX_SIZE);
        // char sql[MAX_SIZE];
-        sprintf(sql, "select deviceName, productKey, deviceSecret from user_login where deviceName = '");
+        snprintf(sql, "select deviceName, productKey, deviceSecret from user_login where deviceName = '");
         strcat(sql, deviceName);
         strcat(sql, "' and ");
         strcat(sql, "productKey = '");
