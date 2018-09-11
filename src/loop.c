@@ -566,7 +566,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 #else
 		fdcount = WSAPoll(pollfds, pollfd_index, 100);
 #endif
-#ifdef WITH_EPOLL		
+#ifdef WITH_EPOLL	
 		switch(fdcount){
 		case -1:
 			if(errno != EINTR){

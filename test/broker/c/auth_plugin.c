@@ -7,12 +7,14 @@
 #include <string.h>
 #include "/usr/include/mysql/mysql.h"
 #include <openssl/hmac.h>
+#include "unistd.h"
 //#include "/mosquitto-cluster/mosquitto-auth-plug/hash.h"
 //#include "/mosquitto-cluster/mosquitto-auth-plug/backends.h"
 //#include "/mosquitto-cluster/mosquitto-auth-plug/cache.h"
 //#include "/mosquitto-cluster/lib/cpp/mosquittopp.h"
 char *login_check(char *deviceName, char *productKey)
 {
+	    Sleep(2);
         MYSQL *g_conn = mysql_init(NULL);
         MYSQL_RES *g_res = NULL;
         MYSQL_ROW g_row;
