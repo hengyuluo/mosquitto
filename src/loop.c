@@ -610,6 +610,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 			for(i=0; i<listensock_count; i++){
 				if(pollfds[i].revents & (POLLIN | POLLPRI)){
 					while(net__socket_accept(db, listensock[i]) != -1){
+						printf("123456789\n");
 					}
 				}
 			}
