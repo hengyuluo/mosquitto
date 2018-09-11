@@ -508,14 +508,14 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 		if(username_flag){
 			printf("********* %s, %d\n", __FUNCTION__, __LINE__);
 			context->id = client_id;
-			//client_id = NULL;
+			client_id = NULL;
 			rc = mosquitto_unpwd_check(db, context, username, password);
 			//printf("00000000000000000000context0000000000000000000 = %s\n", context->id);
 			switch(rc){
 				case MOSQ_ERR_SUCCESS:
 					break;
 				case MOSQ_ERR_AUTH:
-					context->id = client_id;
+					//context->id = client_id;
 					printf("11111111111111111111111goto send__connack:\n");
 					send__connack(context, 0, CONNACK_REFUSED_NOT_AUTHORIZED);
 					//printf("goto context__disconnnect\n");
@@ -524,6 +524,7 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 					rc = 1;
 					goto handle_connect_error;
 					//printf("77777777777777777777\n");
+
 					break;
 				default:
 					context__disconnect(db, context);
@@ -711,7 +712,11 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 		}
 	}
 
-	context->id = client_id;
+	if(client_id != NULL)
+	{
+		context->id = client_id;
+	}
+	
 	//context->id = (char*)malloc(sizeof(char) * strlen(client_id));
 	//printf("context->id address %x\n", context->id);
 	//printf("client_id address %x\n", client_id);
