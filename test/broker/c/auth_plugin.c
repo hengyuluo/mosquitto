@@ -445,7 +445,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 		printf("welcome\n");
 		free(combination);
 		combination = NULL;
-
+		printf("success\n");
 		return MOSQ_ERR_SUCCESS;
 	}
 	else{
