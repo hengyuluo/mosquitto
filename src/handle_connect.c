@@ -710,16 +710,13 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 		}
 	}
 
-	printf("1\n");
 	context->id = client_id;
 	//context->id = (char*)malloc(sizeof(char) * strlen(client_id));
 	//printf("context->id address %x\n", context->id);
 	//printf("client_id address %x\n", client_id);
 	//memset(context->id, 0, strlen(client_id));
 	//memcpy(context->id, client_id, strlen(client_id));
-	printf("2\n");
 	client_id = NULL;
-	printf("3\n");
 	context->clean_session = clean_session;
 	context->ping_t = 0;
 	context->is_dropping = false;
