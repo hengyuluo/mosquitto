@@ -585,17 +585,19 @@ int packet__read(struct mosquitto *mosq)
 	}
 	printf("goto handle__packet1\n");
 	rc = handle__packet(db, mosq);
+	printf("1\n");
 #else
 	printf("goto handle__packet2\n");
 	rc = handle__packet(mosq);
 #endif
 
 	/* Free data and reset values */
+	printf("2\n");
 	packet__cleanup(&mosq->in_packet);
 
 	pthread_mutex_lock(&mosq->msgtime_mutex);
 	mosq->last_msg_in = mosquitto_time();
 	pthread_mutex_unlock(&mosq->msgtime_mutex);
-	printf("packet__read return\n");
+	printf("3\n");
 	return rc;
 }
