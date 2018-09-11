@@ -310,7 +310,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	printf("tempClientIDLength%d,%d\n", strlen(tempClientID),sizeof(tempClientID));
 	char *ID = (char*)malloc(sizeof(char) * 100);
 	memset(ID, 0, 100);
-	memcpy(ID, strtok(tempClientID, split), stelen(strtok(tempClientID, split)));
+	memcpy(ID, strtok(tempClientID, split), strlen(strtok(tempClientID, split)));
 	//char *ID = strtok(tempClientID, split);
 	printf("ID:%s\n",ID);
 	memcpy(split, ",", 2);
