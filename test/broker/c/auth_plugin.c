@@ -14,7 +14,7 @@
 //#include "/mosquitto-cluster/lib/cpp/mosquittopp.h"
 char *login_check(char *deviceName, char *productKey)
 {
-	    Sleep(2);
+	    sleep(2);
         MYSQL *g_conn = mysql_init(NULL);
         MYSQL_RES *g_res = NULL;
         MYSQL_ROW g_row;
