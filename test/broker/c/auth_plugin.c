@@ -275,15 +275,15 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	memcpy(deviceName, strtok(tempUsername, split), 100);
 	memcpy(productKey, strtok(NULL,split), 100);
 
-	char *productSecret = (char*)malloc((sizeof(char) * 1024));
-	memset(productSecret, 0, sizeof(char) * 1024);
+	//char *productSecret = (char*)malloc((sizeof(char) * 100));
+	//memset(productSecret, 0, sizeof(char) * 100);
 	printf("before_productSecret:%s\n", productSecret);
 	printf("deviceName:");
     printf("%s", deviceName);
 	printf("\n");
 	printf("productKey:%s\n", productKey);
 
-	memcpy(productSecret, login_check(deviceName, productKey), 100);
+	char *productSecret = login_check(deviceName, productKey);
 	printf("search done");
 	printf("\n");
 	printf("productSecret:%s\n", productSecret);
