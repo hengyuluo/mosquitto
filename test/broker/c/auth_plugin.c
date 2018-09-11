@@ -101,12 +101,12 @@ char *hmacsha1(char *key, char *data)
 
         // Be careful of the length of string with the choosen hash engine. SHA1 needed 20 characters.
         // Change the length accordingly with your choosen hash engine.
-/*        unsigned char* result;
+       /* unsigned char* result;
         unsigned int len = 100;
 
         result = (unsigned char*)malloc(sizeof(char) * len);
 
-        HMAC_CTX ctx;
+        HMAC_CTX ctx
         HMAC_CTX_init(&ctx);
 
         // Using sha1 hash engine here.
@@ -125,7 +125,25 @@ char *hmacsha1(char *key, char *data)
 
         return result;
 	*/
-	return data;
+
+    unsigned char digest[EVP_MAX_MD_SIZE] = {'\0'};
+    unsigned int digest_len = 0;
+
+    // Using sha1 hash engine here.
+    // You may use other hash engines. e.g EVP_md5(), EVP_sha224, EVP_sha512, etc
+    HMAC(EVP_sha1(), key, strlen(key), (unsigned char*)data, strlen(data), digest, &digest_len);
+    printf("%s, len %u\n", digest, digest_len);
+
+    // Be careful of the length of string with the choosen hash engine. SHA1 produces a 20-byte hash value which rendered as 40 characters.
+    // Change the length accordingly with your choosen hash engine
+    char *mdString = (char*)malloc(sizeof(char) * 100);
+    memset(mdString, 0, 100);
+    for(int i = 0; i < 20; i++)
+         sprintf(&mdString[i*2], "%02x", (unsigned int)digest[i]);
+
+   // printf("HMAC digest: %s\n", mdString);
+
+    return mdString;
 }
 
 
@@ -166,6 +184,7 @@ int mosquitto_auth_security_cleanup(void *user_data, struct mosquitto_opt *auth_
 
 int mosquitto_auth_acl_check(void *user_data, int access, const struct mosquitto *client, const struct mosquitto_acl_msg *msg)
 {
+	return MOSQ_ERR_SUCCESS;
 	printf("##################%s:%s:%d\n",__FILE__, __FUNCTION__, __LINE__);
 
 	const char *username = mosquitto_client_username(client);
@@ -429,7 +448,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	realSecureMode = NULL;
 	realTimeStamp = NULL;
 	realSignMethod = NULL;
-	
+	char *hashResult = hmacsha1(combination, productSecret);
 /*	if(strcmp(realSignMethod, "hmacsha1") == 0)
 	{
 		char *Hash_result = hmacsha1(combination, productSecret);
@@ -454,12 +473,17 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 		free(combination);
 		combination = NULL;
 		printf("success\n");
+		free(hashResult);
+		hashResult = NULL;
 		return MOSQ_ERR_SUCCESS;
 	}
 	else{
 		printf("password error\n");
 		free(combination);
 		combination = NULL;
+		                free(hashResult);
+                hashResult = NULL;
+
 		return MOSQ_ERR_AUTH;
 	}
 }
