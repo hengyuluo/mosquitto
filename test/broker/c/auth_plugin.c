@@ -130,6 +130,8 @@ char *hmacsha1(char *key, char *data)
 	printf("2\n");
     unsigned int digest_len = 0;
 	printf("3\n");
+	printf("key:%s\n", key);
+	printf("data:%s\n", data);
     // Using sha1 hash engine here.
     // You may use other hash engines. e.g EVP_md5(), EVP_sha224, EVP_sha512, etc
     HMAC(EVP_sha1(), key, strlen(key), (unsigned char*)data, strlen(data), digest, &digest_len);
