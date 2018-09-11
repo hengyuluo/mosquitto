@@ -215,6 +215,7 @@ do {                                                                            
 #define HASH_DELETE(hh,head,delptr)                                              \
 do {                                                                             \
 	if(head){																	 \
+	printf("if\n");																 \
     unsigned _hd_bkt;                                                            \
     struct UT_hash_handle *_hd_hh_del;                                           \
     if ( ((delptr)->hh.prev == NULL) && ((delptr)->hh.next == NULL) )  {         \
