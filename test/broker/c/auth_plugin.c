@@ -61,21 +61,12 @@ char *login_check(char *deviceName, char *productKey)
         g_res = mysql_store_result(g_conn);
 
         int iNum_rows = mysql_num_rows(g_res);
- if(iNum_rows == 0)
+
+
+		char* ret = NULL;
+        if(iNum_rows == 0)
         {
-                mysql_free_result(g_res);
-                mysql_close(g_conn);
-				free(g_host_name);
-				free(g_user_name);
-				free(g_password);
-				free(g_db_name);
-				g_host_name = NULL;
-				g_user_name = NULL;
-				g_password = NULL;
-				g_db_name = NULL;
-				free(sql);
-				sql = NULL;
-                return "0";
+                ret = "0";
         }
         else
         {
@@ -84,20 +75,24 @@ char *login_check(char *deviceName, char *productKey)
 				memset(result, 0, strlen(g_row[2]) + 1);
 				memcpy(result, g_row[2], strlen(g_row[2]));
                 //char *result = g_row[2];
-                mysql_free_result(g_res);
-                mysql_close(g_conn);
-				free(g_host_name);
-				free(g_user_name);
-				free(g_password);
-				free(g_db_name);
-				g_host_name = NULL;
-				g_user_name = NULL;
-				g_password = NULL;
-				g_db_name = NULL;
-				free(sql);
-				sql = NULL;
-                return result;
+                ret = result;
         }
+
+		printf("address:  %x, %x, %x, %x, %x, %x\n", g_res, g_conn,g_host_name,  g_password, g_db_name, sql);
+
+		mysql_free_result(g_res);
+		mysql_close(g_conn);
+		free(g_host_name);
+		free(g_user_name);
+		free(g_password);
+		free(g_db_name);
+		g_host_name = NULL;
+		g_user_name = NULL;
+		g_password = NULL;
+		g_db_name = NULL;
+		free(sql);
+		sql = NULL;
+		return ret;
 }
 
 char *hmacsha1(char *key, char *data)
