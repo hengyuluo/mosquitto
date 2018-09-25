@@ -604,6 +604,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 			}
 		}
 #else
+
 		if(fdcount == -1){
 			log__printf(NULL, MOSQ_LOG_ERR, "Error in poll: %s.", strerror(errno));
 		}else{
@@ -677,6 +678,7 @@ int mosquitto_main_loop(struct mosquitto_db *db, mosq_sock_t *listensock, int li
 #else
 	mosquitto__free(pollfds);
 #endif
+	
 	return MOSQ_ERR_SUCCESS;
 }
 
@@ -893,8 +895,8 @@ static void loop_handle_reads_writes(struct mosquitto_db *db, struct pollfd *pol
 					printf("loop1 packet_read down\n");
 					do_disconnect(db, context);
 					printf("loop1 do_disconnect down\n");
-					//continue; 
-					return -1;
+					continue; 
+					//return -1;
 				}
 			}while(SSL_DATA_PENDING(context));
 			printf("88888888######8888888\n");
