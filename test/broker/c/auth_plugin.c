@@ -12,7 +12,9 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-//#include "tuobao_tcpclient.h"
+#include <stdio.h>
+
+
 #ifndef _TUOBAO_TCP_CLIENT_
 #define _TUOBAO_TCP_CLIENT_
 #define MAXLINE 1024
@@ -205,10 +207,72 @@ int http_post(tuobao_tcpclient *pclient,char *page,char *request,char **response
     return 0;
 }
 
-//#include "/mosquitto-cluster/mosquitto-auth-plug/hash.h"
-//#include "/mosquitto-cluster/mosquitto-auth-plug/backends.h"
-//#include "/mosquitto-cluster/mosquitto-auth-plug/cache.h"
-//#include "/mosquitto-cluster/lib/cpp/mosquittopp.h"
+char *base64_encode(const char* data, int data_len) 
+{ 
+	//int data_len = strlen(data); 
+	const char base[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; 
+	int prepare = 0; 
+	int ret_len; 
+	int temp = 0; 
+	char *ret = NULL; 
+	char *f = NULL; 
+	int tmp = 0; 
+	char changed[4]; 
+	int i = 0; 
+	ret_len = data_len / 3; 
+	temp = data_len % 3; 
+	if (temp > 0) 
+	{ 
+		ret_len += 1; 
+	} 
+	ret_len = ret_len*4 + 1; 
+	ret = (char *)malloc(ret_len); 
+
+	if ( ret == NULL) 
+	{ 
+		printf("No enough memory.\n"); 
+		exit(0); 
+	} 
+	memset(ret, 0, ret_len); 
+	f = ret; 
+	while (tmp < data_len) 
+	{ 
+		temp = 0; 
+		prepare = 0; 
+		memset(changed, '\0', 4); 
+		while (temp < 3) 
+		{ 
+			//printf("tmp = %d\n", tmp); 
+			if (tmp >= data_len) 
+			{ 
+				break; 
+			} 
+			prepare = ((prepare << 8) | (data[tmp] & 0xFF)); 
+			tmp++; 
+			temp++; 
+		} 
+		prepare = (prepare<<((3-temp)*8)); 
+		//printf("before for : temp = %d, prepare = %d\n", temp, prepare); 
+		for (i = 0; i < 4 ;i++ ) 
+		{ 
+			if (temp < i) 
+			{ 
+				changed[i] = 0x40; 
+			} 
+			else 
+			{ 
+				changed[i] = (prepare>>((3-i)*6)) & 0x3F; 
+			} 
+			*f = base[changed[i]]; 
+			//printf("%.2X", changed[i]); 
+			f++; 
+		} 
+	} 
+	*f = '\0'; 
+
+	return ret; 
+
+} 
 //char *login_check(char *deviceName, char *productKey)
 //{
 //        MYSQL *g_conn = mysql_init(NULL);
@@ -411,18 +475,24 @@ int mosquitto_auth_acl_check(void *user_data, int access, const struct mosquitto
 		break;
 			}
 	}
+	char *base64Username = (char*)malloc(sizeof(char) * 300);
+	memset(base64Username, 0, 300);
+	base64Username = base64_encode(username, strlen(username));
 	tuobao_tcpclient_create(&tcpClient,"192.168.81.245",9090);  //TODO
 	char *message = (char*)malloc(sizeof(char) * 300);
 	memset(message, 0, 300);
 	strcat(message, "username=");
-	strcat(message, username);
-	strcat(message, "&topic=");
+	strcat(message, base64Username);
+	strcat(message, "&topicName=");
 	strcat(message, msg->topic);
 	strcat(message, "&access=");
 	strcat(message, c_access);
-	
 	http_post(&tcpClient,"http://192.168.81.245:9090//a", message, &response);
 	tuobao_tcpclient_close(&tcpClient);
+	if(base64Username){
+		free(base64Username);
+		base64Username = NULL;
+	}
 	if(c_access)
 	{
 		free(c_access);
@@ -433,7 +503,7 @@ int mosquitto_auth_acl_check(void *user_data, int access, const struct mosquitto
 		free(message);
 		message = NULL;
 	}
-	if(!strcmp(response, "0"))
+	if(!strcmp(response, "1"))
 	{
 		if(response){
 			free(response);
@@ -751,6 +821,10 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 //	}
 // 
 	//printf("I get a clientID:%s\n", mosquitto_client_id(client));
+
+	char *base64Username = (char*)malloc(sizeof(char) * 300);
+	memset(base64Username, 0, 300);
+	base64Username = base64_encode(username, strlen(username));
     tuobao_tcpclient tcpClient;
  
     char *response = NULL;
@@ -759,7 +833,7 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	char *msg = (char*)malloc(sizeof(char) * 300);
 	memset(msg, 0, 300);
 	strcat(msg,"username=");
-	strcat(msg, username);
+	strcat(msg, base64Username);
 	strcat(msg, "&");
 	strcat(msg, "password=");
 	strcat(msg, password);
@@ -774,6 +848,10 @@ int mosquitto_auth_unpwd_check(void *user_data, const struct mosquitto *client, 
 	tuobao_tcpclient_close(&tcpClient);
 	free(msg);
 	msg = NULL;
+	if(base64Username){
+		free(base64Username);
+		base64Username = NULL;
+	}
 	//printf("this is response");
  //   printf(":\n%d:%s\n",strlen(response),response);
 	if(!strcmp(response, "0")){
